@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-# dummy posts 
+# dummy posts
 posts = [
     {
         'author': 'Kealan Gifford',
@@ -23,4 +23,4 @@ def home(request):
     return render(request, 'stock_blog/home.html', context)
 
 def about(request):
-    return render(request, 'stock_blog/about.html')
+    return render(request, 'stock_blog/about.html', {'title': 'About'})

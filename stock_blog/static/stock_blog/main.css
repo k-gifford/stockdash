@@ -13,7 +13,7 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #003518;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -41,7 +41,7 @@ ul {
 }
 
 a.article-title:hover {
-  color: #428bca;
+  color: #003518;
   text-decoration: none;
 }
 
@@ -62,8 +62,12 @@ a.article-title:hover {
 }
 
 .article-metadata a:hover {
-  color: #333;
+  color: #003518;
   text-decoration: none;
+}
+
+.article-author-link{
+  color: #003518
 }
 
 .article-svg {

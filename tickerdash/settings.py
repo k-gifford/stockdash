@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'charts.apps.ChartsConfig',
     'users.apps.UsersConfig',
     'stock_blog.apps.StockBlogConfig',
     'crispy_forms',

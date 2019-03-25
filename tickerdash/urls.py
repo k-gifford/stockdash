@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from charts import views as charts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +43,10 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(
             template_name='users/password_reset_complete.html'),
             name='password_reset_complete'),
+    path('charts/',
+        charts_views.TickerChart.as_view(
+            template_name = "charts/ticker_chart.html"),
+            name='ticker_chart'),
     path('', include('stock_blog.urls'))
 ]
 

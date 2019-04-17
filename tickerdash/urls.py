@@ -48,7 +48,6 @@ urlpatterns = [
         charts_views.TickerChart.as_view(
             template_name = "charts/ticker_chart.html"),
             name='ticker_chart'),
-    path('django_plotly_dash/', include('django_plotly_dash.urls')),
     path('', include('stock_blog.urls'))
 ]
 

@@ -1,7 +1,55 @@
 {% extends "stock_blog/base.html" %}
-{% load staticfiles plotly_dash%}
 
 {% block content %}
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
   <h1>Ticker: {{symbol}}</h1>
-  {% plotly_app name="dash-chart-app" %}
+  <!-- Plotly chart will be drawn inside this div -->
+  <div id="plotly-div"></div>
+  <script>
+    var index = [];
+
+    var trace1 = {
+      x: [],
+      close: [],
+      decreasing: {line: {color: '#7F7F7F'}},
+      high: [],
+      increasing: {line: {color: '#17BECF'}},
+      line: {color: 'rgba(31,119,180,1)'},
+      low: [],
+      open: [],
+      type: 'candlestick',
+      xaxis: 'x',
+      yaxis: 'y'
+    };
+
+    var data = [trace1];
+
+    var layout = {
+      dragmode: 'zoom',
+      margin: {
+        r: 10,
+        t: 25,
+        b: 40,
+        l: 60
+      },
+      showlegend: false,
+      xaxis: {
+        autorange: true,
+        domain: [0, 1],
+        range: ['2017-01-03 12:00', '2017-02-15 12:00'],
+        title: 'Date',
+        type: 'date'
+      },
+      yaxis: {
+        autorange: true,
+        domain: [0, 1],
+        range: [114.609999778, 137.410004222],
+        type: 'linear'
+      }
+    };
+
+    Plotly.plot('plotly-div', data, layout, {showSendToCloud: true});
+  </script>
+
 {% endblock content %}

@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from users import views as user_views
 from charts import views as charts_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', user_views.register, name='register'),
@@ -47,6 +48,7 @@ urlpatterns = [
         charts_views.TickerChart.as_view(
             template_name = "charts/ticker_chart.html"),
             name='ticker_chart'),
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
     path('', include('stock_blog.urls'))
 ]
 

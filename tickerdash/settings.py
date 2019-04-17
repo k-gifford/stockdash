@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'stock_blog.apps.StockBlogConfig',
     'crispy_forms',
     'plotly',
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_plotly_dash.middleware.BaseMiddleware',
 ]
 
 ROOT_URLCONF = 'tickerdash.urls'

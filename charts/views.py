@@ -18,7 +18,7 @@ class TickerChart(TemplateView):
 
         self.context['symbol'] = self.ticker
         ts = TimeSeries(key='7UUDZNRH3NEXO77C', output_format='pandas')
-        data, meta_data = ts.get_intraday(symbol=self.ticker, interval='1min', outputsize='compact')
+        data, meta_data = ts.get_intraday(symbol=self.ticker, interval='1min', outputsize='full')
 
         self.context['index'] = []
 

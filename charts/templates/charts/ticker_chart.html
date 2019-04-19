@@ -7,17 +7,26 @@
   <!-- Plotly chart will be drawn inside this div -->
   <div id="plotly-div"></div>
   <script>
-    var index = [];
+
+    var index = {{index}};
+    for (item in index){
+      item = new Date(item.isoformat);
+    }
+    index.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(b.date) - new Date(a.date);
+    });
 
     var trace1 = {
-      x: [],
-      close: [],
+      x: index,
+      close: {{close}},
       decreasing: {line: {color: '#7F7F7F'}},
-      high: [],
+      high: {{high}},
       increasing: {line: {color: '#17BECF'}},
       line: {color: 'rgba(31,119,180,1)'},
-      low: [],
-      open: [],
+      low: {{low}},
+      open: {{open}},
       type: 'candlestick',
       xaxis: 'x',
       yaxis: 'y'
@@ -37,14 +46,14 @@
       xaxis: {
         autorange: true,
         domain: [0, 1],
-        range: ['2017-01-03 12:00', '2017-02-15 12:00'],
+        range: [index[index.length-1], [index[0]]],
         title: 'Date',
         type: 'date'
       },
       yaxis: {
         autorange: true,
         domain: [0, 1],
-        range: [114.609999778, 137.410004222],
+        range: [0, 100],
         type: 'linear'
       }
     };

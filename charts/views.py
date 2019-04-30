@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from alpha_vantage.timeseries import TimeSeries
 from datetime import datetime
-import time
 import pandas as pd
+import json
 
 class TickerChart(TemplateView):
     template_name = ""
@@ -18,19 +18,32 @@ class TickerChart(TemplateView):
 
         self.context['symbol'] = self.ticker
         ts = TimeSeries(key='7UUDZNRH3NEXO77C', output_format='pandas')
-        data, meta_data = ts.get_intraday(symbol=self.ticker, interval='1min', outputsize='full')
+        data, meta_data = ts.get_intraday(symbol=self.ticker, interval='60min', outputsize='compact')
 
-        self.context['index'] = []
+        open = data['1. open'].tolist()
+        high = data['2. high'].tolist()
+        low = data['3. low'].tolist()
+        close = data['4. close'].tolist()
+        volume = data['5. volume'].tolist()
 
-        date_index = pd.to_datetime(data.index)
-        date_index = date_index.to_pydatetime().tolist()
-        for date in date_index:
-            self.context['index'].append(int(time.mktime(date.timetuple())) * 1000)
+        # date_index = (pd.to_datetime(data.index)).to_pydatetime().tolist()
+        date_index = [d.__str__() for d in pd.to_datetime(data.index)]
 
-        self.context['open'] = data['1. open'].tolist()
-        self.context['high'] = data['2. high'].tolist()
-        self.context['low'] = data['3. low'].tolist()
-        self.context['close'] = data['4. close'].tolist()
-        self.context['volume'] = data['5. volume'].tolist()
+        d = dict() # dates in JSON
+        pos = 0
+        while pos < len(date_index):
+            new_date = date_index[pos]
+            d[new_date] = {'open': open[pos],
+                            'high': high[pos],
+                            'low': low[pos],
+                            'close': close[pos],
+                            'volume': volume[pos]}
+            pos+=1
+
+        self.context['payload'] = json.dumps(d)
 
         return self.context
+
+
+
+#

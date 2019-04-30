@@ -6,27 +6,44 @@
   <h1>Ticker: {{symbol}}</h1>
   <!-- Plotly chart will be drawn inside this div -->
   <div id="plotly-div"></div>
-  <script>
+  <script type="text/javascript">
 
-    var index = {{index}};
-    for (item in index){
-      item = new Date(item.isoformat);
-    }
-    index.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return new Date(b.date) - new Date(a.date);
+    var index = {{payload|safe}};
+
+    var dates = [];
+    var open = [];
+    var high = [];
+    var low = [];
+    var close = [];
+    var volume = [];
+
+    Object.keys(index).forEach(function(key){
+      dates.push(key);
+      open.push(index[key].open);
+      high.push(index[key].high);
+      low.push(index[key].low);
+      close.push(index[key].close);
+      volume.push(index[key].volume);
     });
 
+
+    Object.keys(dates).forEach(function filterOutWeekend(ts){
+      var date = new Date(ts);
+      var day = date.getDay();
+      console.log(day);
+      return (day === 0 || day === 6) ? null : ts;
+    });
+
+
     var trace1 = {
-      x: index,
-      close: {{close}},
-      decreasing: {line: {color: '#7F7F7F'}},
-      high: {{high}},
-      increasing: {line: {color: '#17BECF'}},
+      x: dates,
+      close: close,
+      decreasing: {line: {color: '#FF0000'}},
+      high: high,
+      increasing: {line: {color: '#228B22'}},
       line: {color: 'rgba(31,119,180,1)'},
-      low: {{low}},
-      open: {{open}},
+      low: low,
+      open: open,
       type: 'candlestick',
       xaxis: 'x',
       yaxis: 'y'
@@ -46,15 +63,16 @@
       xaxis: {
         autorange: true,
         domain: [0, 1],
-        range: [index[index.length-1], [index[0]]],
         title: 'Date',
-        type: 'date'
+        type: 'category',
+        showticklabels: false
       },
       yaxis: {
         autorange: true,
         domain: [0, 1],
         range: [0, 100],
-        type: 'linear'
+        type: 'linear',
+        title: 'Price'
       }
     };
 

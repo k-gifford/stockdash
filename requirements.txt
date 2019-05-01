@@ -9,7 +9,7 @@ dash-html-components==0.15.0
 dash-renderer==0.22.0
 dash-table==3.6.0
 decorator==4.4.0
-Django==2.1
+Django==2.1.2
 django-crispy-forms==1.7.2
 django-plotly-dash==0.9.8
 dpd-components==0.1.0

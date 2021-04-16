@@ -1,6 +1,6 @@
 # Tickerdash
 
-A Django-based blog app.
+A financial blogging app.
 
 # HOME
 ![alt text](https://raw.githubusercontent.com/k-gifford/stockdash/master/media/screenshots/tickerdash_homepage.png)
